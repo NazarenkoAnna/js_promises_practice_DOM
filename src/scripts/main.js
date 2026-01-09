@@ -63,26 +63,19 @@ const thirdPromise = new Promise((resolve, reject) => {
       left = true;
     }
 
-    if (e.button === 2) {
+    if (e.type === 'contextmenu') {
       right = true;
     }
 
     if (left === true && right === true) {
       resolve('Third promise was resolved');
       document.removeEventListener('click', handler);
+      document.removeEventListener('contextmenu', handler);
     }
   };
 
   document.addEventListener('click', handler);
-
-  document.addEventListener('contextmenu', (e) => {
-    right = true;
-
-    if (left === true && right === true) {
-      resolve('Third promise was resolved');
-      document.removeEventListener('click', handler);
-    }
-  });
+  document.addEventListener('contextmenu', handler);
 });
 
 thirdPromise.then((msg) => {
